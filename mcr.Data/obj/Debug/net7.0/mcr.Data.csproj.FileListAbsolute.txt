@@ -1,0 +1,14 @@
+/Users/jessica/github/mcr/mcr.Data/bin/Debug/net7.0/mcr.Data.deps.json
+/Users/jessica/github/mcr/mcr.Data/bin/Debug/net7.0/mcr.Data.dll
+/Users/jessica/github/mcr/mcr.Data/bin/Debug/net7.0/mcr.Data.pdb
+/Users/jessica/github/mcr/mcr.Data/obj/Debug/net7.0/mcr.Data.csproj.AssemblyReference.cache
+/Users/jessica/github/mcr/mcr.Data/obj/Debug/net7.0/mcr.Data.GeneratedMSBuildEditorConfig.editorconfig
+/Users/jessica/github/mcr/mcr.Data/obj/Debug/net7.0/mcr.Data.AssemblyInfoInputs.cache
+/Users/jessica/github/mcr/mcr.Data/obj/Debug/net7.0/mcr.Data.AssemblyInfo.cs
+/Users/jessica/github/mcr/mcr.Data/obj/Debug/net7.0/mcr.Data.csproj.CoreCompileInputs.cache
+/Users/jessica/github/mcr/mcr.Data/obj/Debug/net7.0/mcr.Data.dll
+/Users/jessica/github/mcr/mcr.Data/obj/Debug/net7.0/refint/mcr.Data.dll
+/Users/jessica/github/mcr/mcr.Data/obj/Debug/net7.0/mcr.Data.pdb
+/Users/jessica/github/mcr/mcr.Data/obj/Debug/net7.0/ref/mcr.Data.dll
+/Users/jessica/github/mcr/mcr.Data/bin/Debug/net7.0/mcr.Data.runtimeconfig.json
+/Users/jessica/github/mcr/mcr.Data/obj/Debug/net7.0/mcr.Data.genruntimeconfig.cache

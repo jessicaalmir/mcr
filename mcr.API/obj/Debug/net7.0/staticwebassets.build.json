@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "nQ7oeVe8nCfBosicI2FQEAfu5kEK3Seonc3SEOBAYsA=",
+  "Source": "mcr.API",
+  "BasePath": "_content/mcr.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
