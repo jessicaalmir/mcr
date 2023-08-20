@@ -13,6 +13,11 @@ builder.Services.AddDbContext<DataContext>(opt => {
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+#region Services
+builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
+
+#endregion
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

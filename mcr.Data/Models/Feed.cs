@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace mcr.Data.Models;
 
-public class Fee: BaseEntity<int>{
+public class Feed: BaseEntity<int>{
     [ForeignKey("EventId")]
     public int EventId {get; set;}
     public  virtual Event? Event{get; set;}
