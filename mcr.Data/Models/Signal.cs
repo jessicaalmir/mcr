@@ -6,6 +6,5 @@ using System.Threading.Tasks;
 namespace mcr.Data.Models;
 
 public class Signal: BaseEntity<int>{
-    public string Name{get; set;}="";
-    
+    public string? Name{get; set;}
 }
