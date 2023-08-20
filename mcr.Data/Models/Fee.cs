@@ -8,7 +8,7 @@ namespace mcr.Data.Models;
 
 public class Fee: BaseEntity<int>{
     [ForeignKey("EventId")]
-    public int ContentId {get; set;}
+    public int EventId {get; set;}
     public  virtual Event? Event{get; set;}
 
     [ForeignKey("SourceId")]
