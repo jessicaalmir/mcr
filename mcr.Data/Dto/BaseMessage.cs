@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace mcr.Data.Dto
+namespace mcr.Data.DTO
 {
     public class BaseMessage<T> where T : class
     {

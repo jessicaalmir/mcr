@@ -1,0 +1,18 @@
+[
+	{
+		"Name": "CC1",
+        "ClientId":1
+	},
+	{
+		"Name": "CC2",
+        "ClientId":3
+	},
+	{
+		"Name": "CC3",
+        "ClientId":2
+	},
+    {
+		"Name": "CC4",
+        "ClientId":1
+	}
+]

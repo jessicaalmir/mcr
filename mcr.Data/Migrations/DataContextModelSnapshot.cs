@@ -49,7 +49,7 @@ namespace mcr.Data.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("clientId")
+                    b.Property<int?>("clientId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -91,6 +91,9 @@ namespace mcr.Data.Migrations
                     b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
                     b.Property<TimeSpan>("TxEnd")
                         .HasColumnType("time");
 
@@ -104,7 +107,7 @@ namespace mcr.Data.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("mcr.Data.Models.Fee", b =>
+            modelBuilder.Entity("mcr.Data.Models.Feed", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,10 +115,7 @@ namespace mcr.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ContentId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EventId")
+                    b.Property<int>("EventId")
                         .HasColumnType("int");
 
                     b.Property<int>("SignalId")
@@ -132,7 +132,7 @@ namespace mcr.Data.Migrations
 
                     b.HasIndex("SourceId");
 
-                    b.ToTable("Fees");
+                    b.ToTable("Feeds");
                 });
 
             modelBuilder.Entity("mcr.Data.Models.Signal", b =>
@@ -171,29 +171,29 @@ namespace mcr.Data.Migrations
                 {
                     b.HasOne("mcr.Data.Models.Client", "Client")
                         .WithMany("Encoders")
-                        .HasForeignKey("clientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("clientId");
 
                     b.Navigation("Client");
                 });
 
             modelBuilder.Entity("mcr.Data.Models.Event", b =>
                 {
-                    b.HasOne("mcr.Data.Models.Encoder", "CC")
+                    b.HasOne("mcr.Data.Models.Encoder", "Encoder")
                         .WithMany()
                         .HasForeignKey("EncoderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CC");
+                    b.Navigation("Encoder");
                 });
 
-            modelBuilder.Entity("mcr.Data.Models.Fee", b =>
+            modelBuilder.Entity("mcr.Data.Models.Feed", b =>
                 {
                     b.HasOne("mcr.Data.Models.Event", "Event")
-                        .WithMany("FeeList")
-                        .HasForeignKey("EventId");
+                        .WithMany("Feeds")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("mcr.Data.Models.Signal", "Signal")
                         .WithMany()
@@ -221,7 +221,7 @@ namespace mcr.Data.Migrations
 
             modelBuilder.Entity("mcr.Data.Models.Event", b =>
                 {
-                    b.Navigation("FeeList");
+                    b.Navigation("Feeds");
                 });
 #pragma warning restore 612, 618
         }

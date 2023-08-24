@@ -14,5 +14,9 @@ namespace mcr.Data
         IRepository<int, Feed> FeedRepository{ get; }
         IRepository<int, Signal> SignalRepository{ get; }
         IRepository<int, Source> SourceRepository{ get; }
+
+        public bool HasChanges();
+
+        Task SaveAsync();
     }
 }

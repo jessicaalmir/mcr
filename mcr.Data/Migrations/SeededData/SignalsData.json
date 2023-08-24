@@ -1,0 +1,17 @@
+[
+	{
+		"Name": "Main"
+	},
+	{
+		"Name": "Backup"
+	},
+	{
+		"Name": "Dirty"
+	},
+	{
+		"Name": "Clean"
+	},
+	{
+		"Name": "World Feed"
+	}
+]

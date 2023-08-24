@@ -36,7 +36,7 @@ public class DataContext:DbContext
     public DbSet<Client> Clients { get; set; }
     public DbSet<Encoder> Encoders { get; set; }
     public DbSet<Event> Events{ get; set; }
-    public DbSet<Fee> Fees { get; set; }
+    public DbSet<Feed> Feeds { get; set; }
     public DbSet<Signal> Signals { get; set; }
     public DbSet<Source> Sources { get; set; }
 }

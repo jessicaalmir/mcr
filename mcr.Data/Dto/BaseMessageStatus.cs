@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace mcr.Data.Dto
+namespace mcr.Data.DTO
 {
     public class BaseMessageStatus
     {

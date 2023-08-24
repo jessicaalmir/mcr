@@ -76,15 +76,16 @@ namespace mcr.Data
             }
         }
 
-        public async Task SaveAsync()
+        public async Task<bool> SaveAllAsync()
         {
             try
             {
-                await _context.SaveChangesAsync();
+                return await _context.SaveChangesAsync() > 0;
             }
             catch (DbUpdateConcurrencyException ex)
             {
                 ex.Entries.Single().Reload();
+                return false;
             }
         }
 
@@ -107,6 +108,24 @@ namespace mcr.Data
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
         #endregion
+
+        public bool HasChanges()
+        {
+            return _context.ChangeTracker.HasChanges();
+        }
+
+        public async Task SaveAsync()
+        {
+             try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                ex.Entries.Single().Reload();
+            }
+        }
     }
 }

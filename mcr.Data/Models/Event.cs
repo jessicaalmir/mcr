@@ -16,10 +16,11 @@ public class Event:BaseEntity<int>{
     public TimeOnly IntTxStart{get; set;}
     public TimeOnly IntTxEnd{get; set;}
     public string? Note{get; set;}
+    public int Status{get; set;}
 
     [ForeignKey("EncoderId")]
     public int EncoderId{get; set;}
-    public virtual Encoder? CC{get; set;}
+    public virtual Encoder? Encoder{get; set;}
     
-    public List<Fee> FeeList{get; set;} = new List<Fee>();
+    public List<Feed> Feeds{get; set;} = new List<Feed>();
 }

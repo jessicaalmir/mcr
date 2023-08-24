@@ -57,7 +57,7 @@ namespace mcr.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    clientId = table.Column<int>(type: "int", nullable: false)
+                    clientId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -66,8 +66,7 @@ namespace mcr.Data.Migrations
                         name: "FK_Encoders_Clients_clientId",
                         column: x => x.clientId,
                         principalTable: "Clients",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -85,6 +84,7 @@ namespace mcr.Data.Migrations
                     IntTxStart = table.Column<TimeSpan>(type: "time", nullable: false),
                     IntTxEnd = table.Column<TimeSpan>(type: "time", nullable: false),
                     Note = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<int>(type: "int", nullable: false),
                     EncoderId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -99,32 +99,32 @@ namespace mcr.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Fees",
+                name: "Feeds",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ContentId = table.Column<int>(type: "int", nullable: false),
-                    EventId = table.Column<int>(type: "int", nullable: true),
+                    EventId = table.Column<int>(type: "int", nullable: false),
                     SourceId = table.Column<int>(type: "int", nullable: false),
                     SignalId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Fees", x => x.Id);
+                    table.PrimaryKey("PK_Feeds", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Fees_Events_EventId",
+                        name: "FK_Feeds_Events_EventId",
                         column: x => x.EventId,
                         principalTable: "Events",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Fees_Signals_SignalId",
+                        name: "FK_Feeds_Signals_SignalId",
                         column: x => x.SignalId,
                         principalTable: "Signals",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Fees_Sources_SourceId",
+                        name: "FK_Feeds_Sources_SourceId",
                         column: x => x.SourceId,
                         principalTable: "Sources",
                         principalColumn: "Id",
@@ -142,18 +142,18 @@ namespace mcr.Data.Migrations
                 column: "EncoderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Fees_EventId",
-                table: "Fees",
+                name: "IX_Feeds_EventId",
+                table: "Feeds",
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Fees_SignalId",
-                table: "Fees",
+                name: "IX_Feeds_SignalId",
+                table: "Feeds",
                 column: "SignalId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Fees_SourceId",
-                table: "Fees",
+                name: "IX_Feeds_SourceId",
+                table: "Feeds",
                 column: "SourceId");
         }
 
@@ -161,7 +161,7 @@ namespace mcr.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Fees");
+                name: "Feeds");
 
             migrationBuilder.DropTable(
                 name: "Events");

@@ -8,5 +8,5 @@ namespace mcr.Data.Models;
 public class Client: BaseEntity<int>{
     public string? Name{get; set;}
 
-    public virtual List<Encoder> Encoders{get; set;} = new List<Encoder>();
+    public virtual List<Encoder>? Encoders{get; set;} = new List<Encoder>();
 }           
