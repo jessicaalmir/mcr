@@ -57,14 +57,14 @@ namespace mcr.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    clientId = table.Column<int>(type: "int", nullable: true)
+                    ClientId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Encoders", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Encoders_Clients_clientId",
-                        column: x => x.clientId,
+                        name: "FK_Encoders_Clients_ClientId",
+                        column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "Id");
                 });
@@ -132,9 +132,9 @@ namespace mcr.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Encoders_clientId",
+                name: "IX_Encoders_ClientId",
                 table: "Encoders",
-                column: "clientId");
+                column: "ClientId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Events_EncoderId",

@@ -8,7 +8,7 @@ namespace mcr.Data.Models;
 
 public class Encoder: BaseEntity<int>{
     public string? Name{get; set;}
-    [ForeignKey("clientId")]
-    public int? clientId{get; set;}
+    [ForeignKey("ClientId")]
+    public int? ClientId{get; set;}
     public virtual Client? Client{get; set;}
 }

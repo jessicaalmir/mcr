@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Threading.Tasks;
 using mcr.Business.IServices;
@@ -39,17 +40,18 @@ namespace mcr.Business.Services
 
             try
             {
+                await _unitOfWork.EventRepository.AddAsync(_newEvent);
                 foreach(var feed in newEvent.Feeds){
                    var newFeed = new Feed{
-                    EventId = _newEvent.Id,
                     SourceId = feed.SourceId,
-                    SignalId = feed.SignalId
+                    SignalId = feed.SignalId,
+                    EventId = _newEvent.Id,
+                    Event = _newEvent
                    };                    
                     _newEvent.Feeds.Add(newFeed);
+                    await _unitOfWork.FeedRepository.AddAsync(newFeed);
                 }
-                await _unitOfWork.EventRepository.AddAsync(_newEvent);
                 await _unitOfWork.SaveAsync();
-
             }
             catch (Exception ex)
             {
@@ -69,18 +71,29 @@ namespace mcr.Business.Services
 
         public async Task<IEnumerable<Event>> GetEventsByDate(DateOnly date)
         {
-            return await _unitOfWork.EventRepository.GetAllAsync(x => x.Date==date);
+            return await _unitOfWork.EventRepository.GetAllAsync(
+                new List<Expression<Func<Event, object>>>
+                    {
+                        e => e.Feeds // Include the Feeds navigation property
+                    },x => x.Date==date);
         }
 
         public async Task<IEnumerable<Event>> GetAllEventsAsync(bool areReferences)
         {
             IEnumerable<Event> events;
-            /*if(areReferences)
+            if(areReferences)
             {
-                events = await _unitOfWork.EventRepository.GetAllAsync(null, x=>x.OrderBy(x=>x.Id));
+                events = await _unitOfWork.EventRepository.GetAllAsync(
+                    new List<Expression<Func<Event, object>>>
+                    {
+                        e => e.Feeds // Include the Feeds navigation property
+                    }, 
+                    null,
+                    x=>x.OrderBy(x=>x.Id),
+                    new Encoder().GetType().Name);
             }else{
-              */  events = await _unitOfWork.EventRepository.GetAllAsync(); 
-            //}
+                events = await _unitOfWork.EventRepository.GetAllAsync(); 
+            }
            return events;
         }
 

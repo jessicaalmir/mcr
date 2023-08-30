@@ -42,6 +42,9 @@ try{
     var contex = services.GetRequiredService<DataContext>();
     await contex.Database.MigrateAsync();
     await Seed.SeedClients(contex);
+    await Seed.SeedSignals(contex);
+    await Seed.SeedSources(contex);
+    await Seed.SeedEncoders(contex);
 }catch(Exception ex){
     var logger = services.GetService<ILogger<Program>>();
     logger.LogError(ex, "An error ocurring during migrating data");

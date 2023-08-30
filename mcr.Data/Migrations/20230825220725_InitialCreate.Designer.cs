@@ -12,7 +12,7 @@ using mcr.Data;
 namespace mcr.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230824193119_InitialCreate")]
+    [Migration("20230825220725_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -49,15 +49,15 @@ namespace mcr.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("ClientId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("clientId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("clientId");
+                    b.HasIndex("ClientId");
 
                     b.ToTable("Encoders");
                 });
@@ -174,7 +174,7 @@ namespace mcr.Data.Migrations
                 {
                     b.HasOne("mcr.Data.Models.Client", "Client")
                         .WithMany("Encoders")
-                        .HasForeignKey("clientId");
+                        .HasForeignKey("ClientId");
 
                     b.Navigation("Client");
                 });

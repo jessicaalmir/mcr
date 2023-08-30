@@ -23,11 +23,21 @@ namespace mcr.Data
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync(
+            IEnumerable<Expression<Func<TEntity, object>>> includes = null,
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
             string includeProperties = "")
         {
             IQueryable<TEntity> query = _dbSet;
+
+             if (includes != null)
+            {
+                foreach (var include in includes)
+                {
+                    query = query.Include(include);
+                }
+            }
+
             if (filter is not null)
             {
                 query = query.Where(filter);
