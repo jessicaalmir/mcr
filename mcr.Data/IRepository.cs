@@ -14,9 +14,9 @@ namespace mcr.Data
         Task AddAsync(TEntity entity);
         Task<TEntity> FindAsync(Tid id);
         Task<IEnumerable<TEntity>> GetAllAsync(
-            IEnumerable<Expression<Func<TEntity, object>>> includes = null,
-            Expression<Func<TEntity, bool>> filter =  null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            IEnumerable<Expression<Func<TEntity, object>>>? includes = null,
+            Expression<Func<TEntity, bool>>? filter =  null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
             string includeProperties = "");
         Task Update(TEntity entity);
         Task Delete(TEntity entity);

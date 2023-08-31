@@ -40,6 +40,10 @@ namespace mcr.Business.Services
 
             try
             {
+                var encoder = await _unitOfWork.EncoderRepository.FindAsync(newEvent.EncoderId);
+                if(encoder==null){
+                    return Utilities.BuildResponse<Event>(HttpStatusCode.BadRequest, BaseMessageStatus.BAD_REQUEST_400);
+                } 
                 await _unitOfWork.EventRepository.AddAsync(_newEvent);
                 foreach(var feed in newEvent.Feeds){
                    var newFeed = new Feed{

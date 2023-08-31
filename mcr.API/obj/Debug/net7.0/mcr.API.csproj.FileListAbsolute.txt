@@ -73,3 +73,5 @@
 /Users/jessica/github/mcr/mcr.API/bin/Debug/net7.0/runtimes/win/lib/netstandard2.0/System.Runtime.Caching.dll
 /Users/jessica/github/mcr/mcr.API/bin/Debug/net7.0/runtimes/win/lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll
 /Users/jessica/github/mcr/mcr.API/bin/Debug/net7.0/runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.dll
+/Users/jessica/github/mcr/mcr.API/bin/Debug/net7.0/Castle.Core.dll
+/Users/jessica/github/mcr/mcr.API/bin/Debug/net7.0/NSubstitute.dll
