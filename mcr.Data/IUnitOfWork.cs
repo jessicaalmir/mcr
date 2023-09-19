@@ -14,6 +14,7 @@ namespace mcr.Data
         IRepository<int, Feed> FeedRepository{ get; }
         IRepository<int, Signal> SignalRepository{ get; }
         IRepository<int, Source> SourceRepository{ get; }
+        //IRepository<int, AppUser> AppUserRepository{ get; }
 
         public bool HasChanges();
 

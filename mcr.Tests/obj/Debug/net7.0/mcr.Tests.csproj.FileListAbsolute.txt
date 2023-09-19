@@ -153,3 +153,8 @@
 /Users/jessica/github/mcr/mcr.Tests/obj/Debug/net7.0/mcr.Tests.pdb
 /Users/jessica/github/mcr/mcr.Tests/obj/Debug/net7.0/mcr.Tests.genruntimeconfig.cache
 /Users/jessica/github/mcr/mcr.Tests/obj/Debug/net7.0/ref/mcr.Tests.dll
+/Users/jessica/github/mcr/mcr.Tests/bin/Debug/net7.0/Microsoft.AspNetCore.Cryptography.Internal.dll
+/Users/jessica/github/mcr/mcr.Tests/bin/Debug/net7.0/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+/Users/jessica/github/mcr/mcr.Tests/bin/Debug/net7.0/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/jessica/github/mcr/mcr.Tests/bin/Debug/net7.0/Microsoft.Extensions.Identity.Core.dll
+/Users/jessica/github/mcr/mcr.Tests/bin/Debug/net7.0/Microsoft.Extensions.Identity.Stores.dll

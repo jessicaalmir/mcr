@@ -18,6 +18,7 @@ namespace mcr.Data
         private IRepository<int, Feed> _feedRepository;
         private IRepository<int, Signal> _signalRepository;
         private IRepository<int, Source> _sourceRepository;
+        //private IRepository<int, AppUser> _appUserRepository;
 
         public UnitOfWork(DataContext context)
         {

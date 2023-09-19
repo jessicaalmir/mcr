@@ -22,6 +22,41 @@ namespace mcr.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("mcr.Data.Models.AppUser", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AppUsers");
+                });
+
             modelBuilder.Entity("mcr.Data.Models.Client", b =>
                 {
                     b.Property<int>("Id")
@@ -189,7 +224,7 @@ namespace mcr.Data.Migrations
 
             modelBuilder.Entity("mcr.Data.Models.Feed", b =>
                 {
-                    b.HasOne("mcr.Data.Models.Event", "Event")
+                    b.HasOne("mcr.Data.Models.Event", null)
                         .WithMany("Feeds")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -206,8 +241,6 @@ namespace mcr.Data.Migrations
                         .HasForeignKey("SourceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Event");
 
                     b.Navigation("Signal");
 

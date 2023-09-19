@@ -9,8 +9,7 @@ namespace mcr.Data.Models;
 public class Feed: BaseEntity<int>{
     [ForeignKey("EventId")]
     public int EventId {get; set;}
-    public  virtual Event? Event{get; set;}
-
+    
     [ForeignKey("SourceId")]
     public int SourceId {get; set;}
     public  virtual Source? Source{get; set;}

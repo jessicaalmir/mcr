@@ -2,6 +2,8 @@ using mcr.Business.IServices;
 using mcr.Business.Services;
 using mcr.Data;
 using mcr.Data.Migrations;
+using mcr.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,7 +21,11 @@ builder.Services.AddSwaggerGen();
 #region Services
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddScoped<IEventService, EventService>();
+//builder.Services.AddIdentity<AppUser,IdentityRole>(options => options.User.AllowedUserNameCharacters+=" ")
+//.AddEntityFrameworkStores<DataContext>()
+//.AddDefaultTokenProviders();
 #endregion
+
 
 var app = builder.Build();
 

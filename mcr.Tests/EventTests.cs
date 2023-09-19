@@ -26,7 +26,7 @@ public class EventTests
         _correctEvent = new Event(){
             Id = 1,
             Code = "PFR12345F",
-            Name = "Messe de Jour",
+            Name = "Messe du Jour",
             Duration = TimeOnly.Parse("00:30:00", CultureInfo.InvariantCulture),
             Date = DateOnly.ParseExact("31/08/2023","dd/MM/yyyy", CultureInfo.InvariantCulture),
             TxStart = TimeOnly.Parse("23:00:00", CultureInfo.InvariantCulture),

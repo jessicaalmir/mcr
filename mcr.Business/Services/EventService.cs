@@ -49,8 +49,7 @@ namespace mcr.Business.Services
                    var newFeed = new Feed{
                     SourceId = feed.SourceId,
                     SignalId = feed.SignalId,
-                    EventId = _newEvent.Id,
-                    Event = _newEvent
+                    EventId = _newEvent.Id
                    };                    
                     _newEvent.Feeds.Add(newFeed);
                     await _unitOfWork.FeedRepository.AddAsync(newFeed);

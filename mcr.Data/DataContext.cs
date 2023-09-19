@@ -1,5 +1,6 @@
 ﻿using mcr.Data.Helpers;
 using mcr.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace mcr.Data;
@@ -39,4 +40,6 @@ public class DataContext:DbContext
     public DbSet<Feed> Feeds { get; set; }
     public DbSet<Signal> Signals { get; set; }
     public DbSet<Source> Sources { get; set; }
+
+    public DbSet<AppUser> AppUsers{ get; set; }
 }
