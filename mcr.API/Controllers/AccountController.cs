@@ -1,10 +1,12 @@
 using System.Security.Cryptography;
 using System.Text;
-using mcr.Data;
 using mcr.Data.Models;
 using mcr.Data.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using mcr.Business.IServices;
+using mcr.Data;
+using Azure.Identity;
 
 namespace mcr.API.Controllers
 {
@@ -13,14 +15,16 @@ namespace mcr.API.Controllers
     public class AccountController: ControllerBase
     {
         private readonly DataContext _context;
+        private readonly ITokenService _tokenService;
 
-        public AccountController(DataContext context)
+        public AccountController(DataContext context, ITokenService tokenService)
         {
             _context = context;
+            _tokenService = tokenService;
         }
 
         [HttpPost("Register")]
-        public async Task<IActionResult> Register(UserRegistrationDto model){
+        public async Task<ActionResult<UserDto>> Register([FromBody] UserRegistrationDto model){
            
             using var hmac = new HMACSHA512();
 
@@ -39,26 +43,35 @@ namespace mcr.API.Controllers
             _context.AppUsers.Add(newUser);
             var result = await _context.SaveChangesAsync();
 
-            return Ok(result);
+            return new UserDto{
+                UserName = newUser.UserName,
+                Token = _tokenService.CreateToken(newUser)
+            };
         }
 
-        /*[HttpPost("Login")]
-        public async Task<IActionResult> Login([FromBody] AuthenticateRequest model){
-            var user = await _userManager.FindByNameAsync(model.UserName);
+        [HttpPost("Login")]
+        public async Task<ActionResult<AppUser>> Login([FromBody] UserLoginDto model){
+            var user = await _context.AppUsers.SingleOrDefaultAsync(x => x.UserName == model.UserName);
 
-            if(user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
+            if(user == null)
                 return Unauthorized();
 
-            var authClaims = new List<Claim>{
-                new Claim(ClaimTypes.Name, model.UserName),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
+            using var hmac = new HMACSHA512(user.PasswordSalt);
 
+            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(model.Password));
 
-        }*/
+            for(int i = 0; i< computedHash.Length; i++){
+                if(computedHash[i] !=user.PasswordHash[i])
+                    return Unauthorized("Invalid Password");
+            }
+
+            return user;
+        }
+
         private async Task<bool> UserExists(string userName){
             return await _context.AppUsers.AnyAsync(x=>x.UserName == userName.ToLower());
         }
 
     }
+
 }

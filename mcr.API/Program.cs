@@ -21,6 +21,7 @@ builder.Services.AddSwaggerGen();
 #region Services
 builder.Services.AddScoped<IUnitOfWork,UnitOfWork>();
 builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<ITokenService, TokenService>();
 //builder.Services.AddIdentity<AppUser,IdentityRole>(options => options.User.AllowedUserNameCharacters+=" ")
 //.AddEntityFrameworkStores<DataContext>()
 //.AddDefaultTokenProviders();
