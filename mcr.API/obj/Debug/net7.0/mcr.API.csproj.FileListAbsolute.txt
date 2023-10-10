@@ -81,3 +81,6 @@
 /Users/jessica/github/mcr/mcr.API/obj/Debug/net7.0/mcr.API.pdb
 /Users/jessica/github/mcr/mcr.API/obj/Debug/net7.0/mcr.API.genruntimeconfig.cache
 /Users/jessica/github/mcr/mcr.API/obj/Debug/net7.0/ref/mcr.API.dll
+/Users/jessica/github/mcr/mcr.API/bin/Debug/net7.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/jessica/github/mcr/mcr.API/bin/Debug/net7.0/AutoMapper.dll
+/Users/jessica/github/mcr/mcr.API/bin/Debug/net7.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll

@@ -1,6 +1,7 @@
 using System;
 using System.Text.Json;
 using mcr.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace mcr.Data.Migrations
@@ -54,5 +55,39 @@ namespace mcr.Data.Migrations
             }   
             await context.SaveChangesAsync();
         }
+    
+         public static async Task SeedUsers(UserManager<AppUser> userManager, RoleManager<AppRole> roleManager){
+            if(await userManager.Users.AnyAsync()) return;
+            
+            var usersData =  await File.ReadAllTextAsync("../mcr.Data/Migrations/SeededData/UsersData.json");
+            var options = new JsonSerializerOptions{PropertyNameCaseInsensitive=true};
+            var users = JsonSerializer.Deserialize<List<AppUser>>(usersData);
+            
+            var roles = new List<AppRole>{
+                new AppRole{Name="Admin"},
+                new AppRole{Name="Member"}
+            };
+            
+            foreach(var role in roles){
+                await roleManager.CreateAsync(role);
+            }
+
+            foreach(var user in users){
+                user.UserName=user.UserName.ToLower();
+                await userManager.CreateAsync(user, "Pa$$word123");
+                await userManager.AddToRoleAsync(user,"Member");
+            }   
+
+            var admin = new AppUser{
+                UserName = "admin",
+                FirstName = "Admin",
+                LastName = "Admin"
+            };
+
+            await userManager.CreateAsync(admin, "Pa$$word123");
+            await userManager.AddToRoleAsync(admin,"Admin");
+        }
+        
+    
     }
 }

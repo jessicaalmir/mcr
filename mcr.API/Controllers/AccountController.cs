@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using mcr.Business.IServices;
 using mcr.Data;
 using Azure.Identity;
+using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 
 namespace mcr.API.Controllers
 {
@@ -14,35 +16,30 @@ namespace mcr.API.Controllers
     [Route("api/[controller]")]
     public class AccountController: ControllerBase
     {
-        private readonly DataContext _context;
+        private readonly UserManager<AppUser> _userManager;
         private readonly ITokenService _tokenService;
+        private readonly IMapper _mapper;
 
-        public AccountController(DataContext context, ITokenService tokenService)
-        {
-            _context = context;
+        public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, IMapper mapper){
+            _userManager = userManager;
             _tokenService = tokenService;
+            _mapper = mapper;
         }
 
         [HttpPost("Register")]
         public async Task<ActionResult<UserDto>> Register([FromBody] UserRegistrationDto model){
            
-            using var hmac = new HMACSHA512();
-
             if( await UserExists(model.UserName))
                 return Conflict("User already created");
 
-            var newUser = new AppUser{
-                FirstName = model.FirstName,
-                LastName = model.LastName,
-                UserName = model.UserName.ToLower(),
-                Email = model.Email,
-                PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(model.Password)),
-                PasswordSalt = hmac.Key
-            };
+            var newUser = _mapper.Map<AppUser>(model);
+            
+            newUser.UserName = model.UserName.ToLower();
+            
+            var result = await _userManager.CreateAsync(newUser, model.Password);
 
-            _context.AppUsers.Add(newUser);
-            var result = await _context.SaveChangesAsync();
-
+            if(!result.Succeeded)
+                return BadRequest(result.Errors);
             return new UserDto{
                 UserName = newUser.UserName,
                 Token = _tokenService.CreateToken(newUser)
@@ -50,26 +47,25 @@ namespace mcr.API.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<AppUser>> Login([FromBody] UserLoginDto model){
-            var user = await _context.AppUsers.SingleOrDefaultAsync(x => x.UserName == model.UserName);
+        public async Task<ActionResult<UserDto>> Login([FromBody] UserLoginDto model){
+            var user = await _userManager.Users.SingleOrDefaultAsync(x => x.UserName == model.UserName);
 
             if(user == null)
                 return Unauthorized();
 
-            using var hmac = new HMACSHA512(user.PasswordSalt);
+            var result = await _userManager.CheckPasswordAsync(user, model.Password);
 
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(model.Password));
+            if(!result)
+                return Unauthorized();
 
-            for(int i = 0; i< computedHash.Length; i++){
-                if(computedHash[i] !=user.PasswordHash[i])
-                    return Unauthorized("Invalid Password");
-            }
-
-            return user;
+            return new UserDto{
+                UserName = user.UserName,
+                Token = _tokenService.CreateToken(user)
+            };
         }
 
         private async Task<bool> UserExists(string userName){
-            return await _context.AppUsers.AnyAsync(x=>x.UserName == userName.ToLower());
+            return await _userManager.Users.AnyAsync(x=>x.UserName == userName.ToLower());
         }
 
     }
